@@ -1,0 +1,27 @@
+@import './styles/custom.css'; 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+    body {
+      @apply font-sans;
+    }
+  }
+
+  body {
+    overflow-x: hidden; /* ปิดการเลื่อนซ้าย-ขวา */
+    overflow-y: auto; /* อนุญาตให้เลื่อนในแนวตั้ง */
+    overscroll-behavior: contain; /* ป้องกันการเด้งกลับเมื่อถึงขอบ */
+    max-height: 100vh; /* จำกัดความสูงไม่ให้เกินขอบจอ */
+  }
+/* Custom class สำหรับตัดวงกลมครึ่ง */
+.clip-half-right {
+  clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+}
+
+/* ตัดด้านซ้าย */
+.clip-half-left {
+  clip-path: polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%);
+}
+
+

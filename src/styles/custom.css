@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ตัวอย่าง custom class */
+.depa-Title-text {
+  @apply text-2xl font-bold;
+  @apply sm:text-4xl;
+}
+
+.depa-Subtitle-text {
+  @apply text-xl font-semibold;
+  @apply sm:text-2xl;
+}
+
+.depa-Header-text {
+  @apply text-lg font-semibold;
+  @apply sm:text-xl;
+}
+
+.depa-Body-text {
+  @apply text-sm font-normal;
+  @apply sm:text-base;
+}
+
+.depa-Small-text {
+  @apply text-sm font-medium;
+}
+
+.depa-Button-text {
+  @apply text-base font-semibold;
+}
+
+.depa-Navigate-text {
+  @apply text-lg font-medium;
+}
+
+.depa-Big-text {
+  @apply text-[36px] font-bold;
+  @apply sm:text-[56px];
+}
+
+.depa-Super-Big-text {
+  @apply text-[140px] font-bold;
+}
+
+.depa-Micro-text {
+  @apply text-xs font-normal;
+}
