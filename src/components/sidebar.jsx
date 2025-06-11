@@ -3,10 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaUserCircle,
   FaHeartbeat,
-  FaCog,
-  FaSignOutAlt,
   FaChevronRight,
-  FaChevronDown,
 } from "react-icons/fa";
 import { PiHandCoinsFill, PiChartLineUpFill } from "react-icons/pi";
 
@@ -23,12 +20,12 @@ const Sidebar = ({
   const location = useLocation();
   const navigate = useNavigate();
   const [isFirstSection, setIsFirstSection] = useState(false);
-  if (location.pathname === "/login") return null; // ซ่อน Sidebar ในหน้า Login
+  if (location.pathname === "/login") return null;
 
   const isActive = (path) => location.pathname === path;
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const userStatus = user?.status || "N/A"; // ถ้าไม่มี user_id ให้แสดง "N/A"
+  const userStatus = user?.status || "N/A";
 
   return (
     <aside
@@ -43,7 +40,7 @@ const Sidebar = ({
           alt="Logo"
           className={`transition-transform duration-300 ease-in-out ${
             isSidebarCollapsed
-              ? "w-[85px] h-[85px] mb-[101px] scale-90"
+              ? "w-auto mb-[101px] scale-90"
               : "w-[186px] h-[186px] scale-100"
           }`}
         />
@@ -173,6 +170,20 @@ const Sidebar = ({
               </div>
               {!isSidebarCollapsed && isHealthOpen && (
                 <ul className="ml-6 mt-2 space-y-2">
+                  {userStatus === "A" && (
+                    <li>
+                      <Link
+                        to="/health/upload_record"
+                        className={`block depa-Navigate-text transition-all duration-300 ease-in-out transform hover:translate-x-2 hover:bg-gradient-to-r from-[#FFC600] to-[#FFF200] hover:shadow-md py-[8px] px-[10px] rounded-[10px] hover:text-white ${
+                          isActive("/health/upload_record")
+                            ? "text-white depa-Navigate-text bg-gradient-to-r from-[#FFC600] to-[#FFF200] py-[8px] px-[10px] rounded-[10px] shadow-md"
+                            : "text-navy-blue"
+                        }`}
+                      >
+                        Upload Record
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <Link
                       to="/health/healtha"
