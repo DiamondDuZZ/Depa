@@ -5,12 +5,12 @@ const Header = ({ imagePreview, handleFileChange, namerole, subrole }) => {
     <div className="flex items-start justify-between mb-8">
       <div className="flex flex-col items-start flex-1">
         <div className="flex items-center mb-4">
-          <div className="bg-gray-200 rounded-full h-16 w-16 flex items-center justify-center">
+          <div className="bg-gray-200 rounded-full h-48 w-48 flex items-center justify-center">
             {imagePreview ? (
               <img
                 src={imagePreview}
                 alt="Profile Preview"
-                className="h-16 w-16 rounded-full object-cover"
+                className="h-48 w-48 rounded-full object-cover"
               />
             ) : (
               <svg
@@ -34,30 +34,30 @@ const Header = ({ imagePreview, handleFileChange, namerole, subrole }) => {
               </svg>
             )}
           </div>
-          <div className="ml-4">
-            <h2 className="text-lg font-bold text-gray-700">
-              ข้อมูลรูปภาพส่วนบุคคล PERSONAL IMAGE DETAILS
-            </h2>
+              <div className="ml-8" >
+                <h2 className="text-lg font-bold text-navy-blue">
+                  ข้อมูลรูปภาพส่วนบุคคล PERSONAL IMAGE DETAILS
+                </h2>
+                <p className="text-sm text-gray-300 mb-6">
+                  คำแนะนำ : ขนาดรูปภาพที่แนะนำคือสูงสุด 2 MB, สกุลไฟล์ jpg, png, jpeg เท่านั้น
+                </p>
+                <div className="w-full">
+              <label
+                htmlFor="file-upload-img"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                กรุณาเลือกไฟล์รูปภาพ <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="file-upload-img"
+                type="file"
+                name="img"
+                accept="image/*"
+                className="w-[600px] h-[31px] pl-2 pb-9 border-b border-navy-blue focus:border-blue-500 outline-none placeholder-gray-400"
+                onChange={handleFileChange}
+              />
+            </div>
           </div>
-        </div>
-        <p className="text-sm text-gray-600 mb-6">
-          คำแนะนำ : ขนาดรูปภาพที่แนะนำคือสูงสุด 2 MB, สกุลไฟล์ jpg, png, jpeg เท่านั้น
-        </p>
-        <div className="w-full">
-          <label
-            htmlFor="file-upload-img"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            กรุณาเลือกไฟล์รูปภาพ <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="file-upload-img"
-            type="file"
-            name="img"
-            accept="image/*"
-            className="w-[600px] h-[31px] pl-2 pb-9 border-b-2 border-gray-300 focus:border-blue-500 outline-none placeholder-gray-400"
-            onChange={handleFileChange}
-          />
         </div>
       </div>
 

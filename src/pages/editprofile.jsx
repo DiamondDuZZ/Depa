@@ -354,7 +354,7 @@ const Editprofile = () => {
           <Section1 formData={formData} handleInputChange={handleInputChange} handleFileChange={handleFileChange} today={today} />
           {/* ส่วนที่ 2 */}
           {/* เส้นคั่น 1 */}
-          <div className="w-[1444px] h-[2px] bg-gray mx-auto my-4 mt-20" />
+          <div className="w-[1444px] h-[2px] bg-none mx-auto my-4 mt-12 " />
 
           {/* เส้นคั่น 1 */}
           {/* ข้อมูล Address */}

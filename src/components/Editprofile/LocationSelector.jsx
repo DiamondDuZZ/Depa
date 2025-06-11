@@ -99,7 +99,7 @@ const LocationSelector = ({ onLocationChange, value }) => {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-4 gap-4 mt-4">
       {/* จังหวัด */}
       <div>
         <label className="block text-gray-700 font-medium mb-2">จังหวัด</label>
@@ -146,12 +146,12 @@ const LocationSelector = ({ onLocationChange, value }) => {
 
       {/* รหัสไปรษณีย์ */}
       <div>
-        <label className="block text-gray-700 font-medium mb-2">รหัสไปรษณีย์</label>
+        <label className="block text-gray-700 font-medium mb-2 ">รหัสไปรษณีย์</label>
         <input
           type="text"
           value={zipCode}
           readOnly
-          className="w-full h-[35px] border border-gray-300 rounded px-2 bg-gray-100"
+          className="w-full h-[35px] border border-gray-300 rounded px-2 bg-gray-100 "
         />
       </div>
     </div>

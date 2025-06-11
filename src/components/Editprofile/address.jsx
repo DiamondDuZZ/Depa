@@ -63,6 +63,19 @@ const Address = ({ formDataAddress, setFormDataAddress }) => {
         <label className="block text-gray-700 font-medium mb-2">
           ภูมิลำเนาเดิม Permanent Home Address
         </label>
+        <input
+          type="text"
+          name="permanent_address"
+          value={formDataAddress?.permanent?.address_line || ""}
+          onChange={(e) =>
+            setFormDataAddress((prev) => ({
+              ...prev,
+              permanent: { ...prev.permanent, address_line: e.target.value },
+            }))
+          }
+          placeholder="กรุณากรอกภูมิลำเนาเดิม *"
+          className="w-[400px] h-[31px] mt-1 pl-2 pb-2 border-b border-gray-300 focus:border-blue-500 outline-none placeholder-gray-400"
+        />
         <LocationSelector
           onLocationChange={(location) =>
             setFormDataAddress((prev) => ({
@@ -76,37 +89,16 @@ const Address = ({ formDataAddress, setFormDataAddress }) => {
           value={formDataAddress.permanent}
         />
 
-        <input
-          type="text"
-          name="permanent_address"
-          value={formDataAddress?.permanent?.address_line || ""}
-          onChange={(e) =>
-            setFormDataAddress((prev) => ({
-              ...prev,
-              permanent: { ...prev.permanent, address_line: e.target.value },
-            }))
-          }
-          placeholder="กรุณากรอกภูมิลำเนาเดิม *"
-          className="w-[400px] h-[31px] mt-3 pl-2 pb-1 border-b-2 border-gray-300 focus:border-blue-500 outline-none placeholder-gray-400"
-        />
       </div>
 
-      <div className="mt-4 p-4 bg-gray-100 rounded"></div>
+      <div className="mt-2 p-4 bg-gray-100 rounded"></div>
 
       {/* ที่อยู่ปัจจุบัน Current Address */}
       <div className="mb-6">
         <label className="block text-gray-700 font-medium mb-2">
           ที่อยู่ปัจจุบัน Current Address
         </label>
-        <LocationSelector
-          onLocationChange={(location) =>
-            setFormDataAddress((prev) => ({
-              ...prev,
-              current: { ...location },
-            }))
-          }
-          value={formDataAddress.current}
-        />
+        {/*ปุ่มที่อยู่เดิม*/}
         <div className="flex items-center space-x-2 mb-2 ml-2">
           <input
             type="checkbox"
@@ -119,6 +111,7 @@ const Address = ({ formDataAddress, setFormDataAddress }) => {
             ตามที่อยู่เดิม
           </label>
         </div>
+
         <input
           type="text"
           name="current_address"
@@ -130,8 +123,18 @@ const Address = ({ formDataAddress, setFormDataAddress }) => {
             }))
           }
           placeholder="กรุณากรอกที่อยู่ปัจจุบัน *"
-          className="w-[400px] h-[31px] pl-2 pb-1 border-b-2 border-gray-300 focus:border-blue-500 outline-none placeholder-gray-400"
+          className="w-[400px] h-[31px] mt-1 pl-2 pb-1 border-b border-gray-300 focus:border-blue-500 outline-none placeholder-gray-400"
         />
+        <LocationSelector
+          onLocationChange={(location) =>
+            setFormDataAddress((prev) => ({
+              ...prev,
+              current: { ...location },
+            }))
+          }
+          value={formDataAddress.current}
+        />
+        
       </div>
 
       {/* โทรศัพท์มือถือ */}

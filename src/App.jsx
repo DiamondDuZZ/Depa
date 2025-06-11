@@ -6,6 +6,7 @@ import Mainmenu from "./pages/mainmenu";
 import Careerpath from "./pages/careerpath";
 import Wealth from "./pages/wealth";
 import Wealth2 from "./pages/wealth2";
+
 import HealthA from "./pages/health_a";
 import HealthB from "./pages/health_b";
 import HealthMain from "./pages/health_main";
@@ -28,7 +29,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/register";
 import PDPA from "./pages/PDPA"; 
-import RegisterMain from "./pages/register_main"; // Import RegisterMain
+import RegisterMain from "./pages/register_main";
 import RegisterDetail from "./pages/register_detail"; 
 
 
@@ -48,10 +49,6 @@ function App() {
   //health A
   const [height, setHeight] = useState(167);
   const [weight, setWeight] = useState(63);
-  //health B
-  const [heightB, setHeightB] = useState(167);
-  const [weightB, setWeightB] = useState(63);
-  //health A
 
   //sidebar
   const [isCareerPathOpen, setIsCareerPathOpen] = useState(false);
@@ -66,7 +63,7 @@ function App() {
   const isLoginPage = location.pathname === "/login";
 
   return (
-    <div className="flex">
+    <>
       <div className="hidden md:block">
         {!isLoginPage && (
           <Sidebar
@@ -81,10 +78,13 @@ function App() {
           />
         )}
       </div>
-      <div
-        className={`flex-1 transition-all duration-300 ${
-          !isLoginPage &&
-          (isSidebarCollapsed ? "ml-0 md:ml-[96px]" : "ml-0 md:ml-64 ")
+      <main
+        className={`${
+          isLoginPage
+            ? "min-h-screen"
+            : `ml-0 md:bg-gray-light3 pt-[120px] p-6 min-h-screen overflow-x-auto ${
+                isSidebarCollapsed ? "md:ml-[96px]" : "md:ml-64"
+              }`
         }`}
       >
         {!isLoginPage && (
@@ -96,61 +96,33 @@ function App() {
             setIsWealthOpen={setIsWealthOpen}
           />
         )}
-        <main
-          className={`${
-            isLoginPage
-              ? ""
-              : "ml-0 md:bg-gray-light3 pt-[120px] p-6 min-h-screen"
-          }`}
-        >
-          <ToastContainer />
-          <Routes>
-            <Route path="/" element={<Mainmenu />} />
-            <Route path="/careerpath" element={<Careerpath />} />
-            <Route path="/wealth/wealth1" element={<Wealth />} />
-            <Route path="/wealth/wealth2" element={<Wealth2 />} />
-            <Route path="/editprofile" element={<Editprofile />} />
-            <Route path="/hr_detail" element={<Hr_detail />} />
-            <Route path="/assignment" element={<Assignment />} />
-            <Route path="/routine" element={<Routine />} />
-            <Route path="/hr" element={<Hr />} />
-            <Route path="/hr_detail" element={<HrDetail />} />
-            <Route path="/mentor" element={<Mentor />} />
-            <Route path="/department_head" element={<DepartmentH />} />
-            <Route path="/department_head_detail" element={<DepartmentHD />} />
-            <Route path="/editdevelopment" element={<Editdevelopment />} />
-            <Route path="/user" element={<User/>} />
-            <Route path="/department_other" element={<Department_other/>} />
-            <Route path="/department_other_detail" element={<Department_other_detail/>} />
-            <Route
-              path="/health/healtha"
-              element={
-                <HealthA
-                  height={height}
-                  setHeight={setHeight}
-                  weight={weight}
-                  setWeight={setWeight}
-                />
-              }
-            />
-            <Route
-              path="/health/healthb"
-              element={
-                <HealthB
-                  heightB={heightB}
-                  setHeightB={setHeightB}
-                  weightB={weightB}
-                  setWeightB={setWeightB}
-                />
-              }
-            />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Login/>} />
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Mainmenu />} />
+          <Route path="/careerpath" element={<Careerpath />} />
+          <Route path="/wealth/wealth1" element={<Wealth />} />
+          <Route path="/wealth/wealth2" element={<Wealth2 />} />
+          <Route path="/editprofile" element={<Editprofile />} />
+          <Route path="/hr_detail" element={<Hr_detail />} />
+          <Route path="/assignment" element={<Assignment />} />
+          <Route path="/routine" element={<Routine />} />
+          <Route path="/hr" element={<Hr />} />
+          <Route path="/hr_detail" element={<HrDetail />} />
+          <Route path="/mentor" element={<Mentor />} />
+          <Route path="/department_head" element={<DepartmentH />} />
+          <Route path="/department_head_detail" element={<DepartmentHD />} />
+          <Route path="/editdevelopment" element={<Editdevelopment />} />
+          <Route path="/user" element={<User/>} />
+          <Route path="/department_other" element={<Department_other/>} />
+          <Route path="/department_other_detail" element={<Department_other_detail/>} />
 
-          </Routes>
-        </main>
-      </div>
-    </div>
+          <Route path="/health/healtha" element={<HealthA/>} />
+          <Route path="/health/healthb" element={<HealthB/>} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+      </main>
+    </>
   );
 }
 

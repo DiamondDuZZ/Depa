@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
-import { FaSignOutAlt } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = ({
   toggleSidebar,
@@ -12,9 +12,41 @@ const Navbar = ({
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State สำหรับ Dropdown
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [userRole, setUserRole] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
-  const username = user?.username || "N/A"; // ถ้าไม่มี user_id ให้แสดง "N/A"
+  const username = user?.username || "N/A";
+  const userRoleID = user?.nameroleId || "N/A";
+  const userImg = user?.img;
+  const userId = user?.userId;
+
+  // ฟังก์ชันดึงข้อมูล role จาก API
+  const fetchUserRole = async () => {
+    if (!userRoleID || userRoleID === "N/A") return;
+    
+    try {
+      const response = await fetch("http://localhost:3000/api/nameroles/getNamerole", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nameroleId: userRoleID }),
+      });
+      
+      const data = await response.json();
+      if (data.success && data.namerole) {
+        setUserRole(data.namerole.namerole_name || "N/A");
+      }
+    } catch (error) {
+      console.error("Error fetching user role:", error);
+      setUserRole("N/A");
+    }
+  };
+
+  useEffect(() => {
+    fetchUserRole();
+  }, [userRoleID]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +65,7 @@ const Navbar = ({
     };
   }, [lastScrollY]);
 
-  if (location.pathname === "/login") return null; // ซ่อน Navbar ในหน้า Login
+  if (location.pathname === "/login") return null;
 
   const getTitle = (pathname) => {
     const paths = pathname.split("/").filter(Boolean);
@@ -45,6 +77,10 @@ const Navbar = ({
     window.location.href = "/login";
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <nav
       className={`bg-white shadow-md p-4 flex justify-between items-center fixed top-5 left-10 right-1 rounded-[20px] transition-all duration-300 h-[90px] z-50 ${
@@ -54,8 +90,8 @@ const Navbar = ({
       }`}
       style={{ maxWidth: "calc(100% - 20px)", marginRight: "20px" }}
     >
-      <div className="flex w-full">
-        <div className="flex-none w-14">
+      <div className="flex w-full items-center">
+        <div className="flex-none w-14 flex items-center justify-center">
           <button
             onClick={() => {
               toggleSidebar();
@@ -63,52 +99,93 @@ const Navbar = ({
               setIsHealthOpen(false);
               setIsWealthOpen(false);
             }}
-            className="text-gray-800 text-2xl focus:outline-none"
+            className="text-2xl focus:outline-none flex items-center justify-center"
+            style={{ color: "#0C2F53" }}
           >
             ☰
           </button>
         </div>
-        <div className="flex-auto text-left">
-          <h1 className="depa-Subtitle-text text-navy-blue font-bold">
+        <div className="flex-auto flex items-center text-left">
+          <h1
+            className="depa-Subtitle-text font-bold"
+            style={{ color: "#0C2F53" }}
+          >
             {getTitle(location.pathname)}
           </h1>
         </div>
         <div className="relative flex-none">
-          {/* ✅ Username + Dropdown Icon */}
+          {/* Username + Role + Profile Image */}
           <div
             className="flex items-center cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            <span className="text-gray-700 mr-2 font-bold">{username}</span>
+            {/* Username และ Role */}
+            <div className="mr-3 text-right">
+              <div
+                className="font-bold text-lg leading-tight"
+                style={{ color: "#0C2F53" }}
+              >
+                {username}
+              </div>
+              <div
+                className="text-sm opacity-75 leading-tight"
+                style={{ color: "#0C2F53" }}
+              >
+                {userRole}
+              </div>
+            </div>
 
-            {/* ✅ ไอคอนลูกศร (Chevron Down) */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={`transition-transform duration-200 ${
-                isDropdownOpen ? "rotate-180" : "rotate-0"
-              }`}
+            {/* Profile Image */}
+            <div
+              className="w-12 h-12 rounded-full overflow-hidden border-2 flex items-center justify-center transition-all duration-200 hover:shadow-lg"
+              style={{ borderColor: "#0C2F53" }}
             >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+              {userImg && !imageError ? (
+                <img
+                  src={userImg}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                  onError={handleImageError}
+                />
+              ) : (
+                <div 
+                  className="w-full h-full flex items-center justify-center rounded-full"
+                  style={{ 
+                    background: "linear-gradient(135deg, #0C2F53 0%, #1e4b73 100%)",
+                    boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1)"
+                  }}
+                >
+                  <div className="relative">
+                    {/* Background Circle */}
+                    <div 
+                      className="absolute inset-0 rounded-full opacity-20"
+                      style={{ 
+                        background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 70%)"
+                      }}
+                    />
+                    
+                    {/* User Icon */}
+                    <FaUser
+                      size={20}
+                      className="text-white drop-shadow-sm relative z-10"
+                      style={{ 
+                        filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))"
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* ✅ Dropdown Menu */}
+          {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl  overflow-hidden transition-all">
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl overflow-hidden transition-all">
               <div className="flex flex-col">
                 <button
                   onClick={handleLogout}
                   className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white bg-white hover:bg-gradient-to-r from-red-500 to-red-600 transition-all duration-200 ease-in-out transform hover:scale-105"
                 >
-                  {/* ✅ ไอคอน Logout */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="22"
