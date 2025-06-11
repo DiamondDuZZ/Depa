@@ -381,7 +381,7 @@ const Register = ({ handleClosePopup }) => {
                     value="M"
                     className="form-radio text-blue-500"
                     checked={gender === "M"}
-                    disabled
+                    onChange={(e) => setGender(e.target.value)}
                   />
                   <span className="ml-2">ชาย Male</span>
                 </label>
@@ -392,7 +392,7 @@ const Register = ({ handleClosePopup }) => {
                     value="F"
                     className="form-radio text-blue-500"
                     checked={gender === "F"}
-                    disabled
+                    onChange={(e) => setGender(e.target.value)}
                   />
                   <span className="ml-2">หญิง Female</span>
                 </label>

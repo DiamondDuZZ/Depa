@@ -90,10 +90,15 @@ const UserManagement = () => {
               <th className="py-3 px-4">ชื่อ</th>
               <th className="py-3 px-4">นามสกุล</th>
               <th className="py-3 px-4">Email</th>
+              <th className="py-3 px-4">รหัสพนักงาน</th>
+              <th className="py-3 px-4">ตำแหน่ง</th>
+              <th className="py-3 px-4">ขั้น</th>
               <th className="py-3 px-4">สถานะ</th>
               <th className="py-3 px-4">จัดการ</th>
             </tr>
           </thead>
+
+          {/* แสดงข้อมูลผู้ใช้ */}
           <tbody>
             {filteredUsers.map((user, index) => (
               <tr
@@ -143,6 +148,39 @@ const UserManagement = () => {
                     disabled
                   />
                 </td>
+                <td className="py-3 px-4 text-[#686868]">
+                  <input
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                   
+                  />
+                </td>
+                {/*ตำแหน่ง*/}
+                <td className="py-3 px-4 text-[#686868]">
+                  <select
+                    className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    
+                  >
+                    <option value="">เจ้าที่ระดับ1</option>
+                    <option value="">เจ้าที่ระดับ2</option>
+                    <option value="">เจ้าที่ระดับ3</option>
+                    <option value="">บลาๆ</option>
+                    <option value="">บลาๆ</option>
+                    <option value="">Sบลาๆ</option>
+                  </select>
+                </td>
+                {/*ขั้น*/}
+                <td className="py-3 px-4 text-[#686868]">
+                  <select
+                    className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+
+                  >
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+
+                  </select>
+                </td>
+                {/*สถานะ*/}
                 <td className="py-3 px-4 text-[#686868]">
                   <select
                     className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
