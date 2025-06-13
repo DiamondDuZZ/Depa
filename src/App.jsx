@@ -6,7 +6,7 @@ import Mainmenu from "./pages/mainmenu";
 import Careerpath from "./pages/careerpath";
 import Wealth from "./pages/wealth";
 import Wealth2 from "./pages/wealth2";
-
+import HealthUploadRecord from "./pages/health_upload_record";
 import HealthA from "./pages/health_a";
 import HealthB from "./pages/health_b";
 import HealthMain from "./pages/health_main";
@@ -115,9 +115,10 @@ function App() {
           <Route path="/user" element={<User/>} />
           <Route path="/department_other" element={<Department_other/>} />
           <Route path="/department_other_detail" element={<Department_other_detail/>} />
-
+          <Route path="/health/upload_record" element={<HealthUploadRecord />} />
           <Route path="/health/healtha" element={<HealthA/>} />
           <Route path="/health/healthb" element={<HealthB/>} />
+          <Route path="health_main" element={<HealthMain/>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login/>} />
         </Routes>
